@@ -2,7 +2,7 @@
 import { buildWorld, TILE as T, isSolidAt } from './world.js';
 import * as M from './model.js';
 import { loadArt } from './art.js';
-import { Renderer, DIRS, INTERACT } from './render.js';
+import { Renderer, DIRS, INTERACT, actionSheet } from './render.js';
 
 const SAVE_KEY = 'farmgame2.save.v1';
 const SECONDS_PER_GAME_MINUTE = 0.7;
@@ -126,10 +126,13 @@ function useTool() {
   const f = feetTile();
   const face = () => { if (tgt.x !== f.x || tgt.y !== f.y) s.player.dir = dirFrom(tgt.x - f.x, tgt.y - f.y); };
   const crop = M.tileAt(s, tgt.x, tgt.y)?.crop;
-  if ((item?.id === 'hoe' || item?.id === 'can') && !(crop && M.isRipe(crop))) {
+  const sheet = actionSheet(item?.id);
+  const drawn = sheet === 'seed' && art.chars[s.look]?.seed;
+  if ((item?.id === 'hoe' || item?.id === 'can' || drawn) && !(crop && M.isRipe(crop))) {
     // Tools change the tile when the swing lands, not when the key is pressed.
+    if (sheet === 'seed' && !canAct(tgt.x, tgt.y)) return; // nothing to sow here: don't crouch for nothing
     face();
-    const anim = art.chars[s.look]?.[item.id]?.meta;
+    const anim = art.chars[s.look]?.[sheet]?.meta;
     const dur = anim ? anim.frames / anim.fps : 0.34;
     g.anim.action = { item: item.id, t: 0, dur, hitAt: anim ? (anim.hit / anim.frames) * dur : dur * 0.55, tx: tgt.x, ty: tgt.y, hit: false, deferred: true };
     return;

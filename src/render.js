@@ -3,6 +3,9 @@ import { TILE as T, HOUSE, BIN, STALL, hash } from './world.js';
 import { cropStage, tileAt } from './model.js';
 import { SHIMMER } from './art.js';
 
+// Which animation sheet an item uses: assets/<look>-hoe|can|seed.png
+export const actionSheet = (item) => (item === 'hoe' || item === 'can' ? item : item?.startsWith('seed:') ? 'seed' : null);
+
 export const DIRS = {
   south: [0, 1], southwest: [-1, 1], west: [-1, 0], northwest: [-1, -1],
   north: [0, -1], northeast: [1, -1], east: [1, 0], southeast: [1, 1],
@@ -204,7 +207,7 @@ export class Renderer {
     const frame = a.moving ? Math.floor(a.walkT * meta.fps) % meta.frames : meta.idle[s.player.dir];
     const px = Math.round(s.player.x), py = Math.round(s.player.y);
     this.shadow(px, py, 20, 7, 0.28);
-    const act = a.action && (a.action.item === 'hoe' || a.action.item === 'can') && ch[a.action.item];
+    const act = a.action && ch[actionSheet(a.action.item)];
     if (act) {
       // Drawn tool animation: four directions, diagonals use the side view.
       const hm = act.meta, d = s.player.dir;

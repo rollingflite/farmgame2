@@ -514,7 +514,7 @@ export async function loadArt(world) {
     await img.decode();
     chars[name] = { img, meta };
     // Optional tool animation sheets, e.g. assets/maple-hoe.png, assets/maple-can.png
-    await Promise.all(['hoe', 'can'].map(async (tool) => {
+    await Promise.all(['hoe', 'can', 'seed'].map(async (tool) => {
       try {
         const r = await fetch(new URL(`../assets/${name}-${tool}.json`, import.meta.url));
         if (!r.ok) return;
