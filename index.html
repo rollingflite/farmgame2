@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>작은 농장</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div id="loading">불러오는 중…</div>
+
+  <div id="status" class="panel">
+    <div id="day"></div>
+    <div id="clock"></div>
+    <div id="money"></div>
+  </div>
+  <div id="side">
+    <button id="btn-help" class="mini" title="도움말 (H)">?</button>
+    <button id="btn-save" class="mini" title="저장">저장</button>
+  </div>
+  <div id="energy" title="기력"><div id="energy-fill"></div><span>기력</span></div>
+
+  <div id="prompt" class="panel" hidden></div>
+  <div id="toast"></div>
+
+  <div id="bottom">
+    <div id="item-name"></div>
+    <div id="hotbar" class="panel"></div>
+  </div>
+
+  <div id="touch">
+    <div id="touch-move"></div>
+    <div id="stick" hidden><i></i></div>
+    <button id="btn-act">상호<br>작용</button>
+    <button id="btn-use">사용</button>
+  </div>
+
+  <div id="dialog" hidden>
+    <div class="panel box" role="dialog" aria-modal="true">
+      <h2 class="title"></h2>
+      <div class="body"></div>
+      <div class="buttons"></div>
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
