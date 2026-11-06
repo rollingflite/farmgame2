@@ -1,6 +1,7 @@
 // Procedural pixel art: terrain, objects, crops and item icons, drawn once at load.
 // Everything is painted pixel by pixel into a Uint32 buffer, then copied to a canvas.
 import { TILE as T, hash, rng } from './world.js';
+import { LOOKS } from './model.js';
 
 export const PAL = {
   outline: '#3a2320',
@@ -506,7 +507,7 @@ for (const kind of Object.keys(SEED_TINT)) {
 
 export async function loadArt(world) {
   const chars = {};
-  await Promise.all(['farmer', 'girl'].map(async (name) => {
+  await Promise.all(LOOKS.map(async (name) => {
     const img = new Image();
     img.src = new URL(`../assets/${name}.png`, import.meta.url).href;
     const meta = await fetch(new URL(`../assets/${name}.json`, import.meta.url)).then((r) => r.json());

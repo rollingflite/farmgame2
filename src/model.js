@@ -5,7 +5,7 @@ export const SAVE_VERSION = 1;
 export const DAY_START = 6 * 60;
 export const PASS_OUT = 26 * 60; // 02:00 the next morning
 export const SLOTS = 9;
-export const LOOKS = ['farmer', 'girl'];
+export const LOOKS = ['farmer', 'girl', 'maple'];
 
 export const CROPS = {
   turnip: { name: '순무', days: 3, seed: 20, sell: 60 },

@@ -1,0 +1,31 @@
+{
+  "frameWidth": 32,
+  "frameHeight": 48,
+  "frames": 8,
+  "fps": 10,
+  "rows": [
+    "south",
+    "southwest",
+    "west",
+    "northwest",
+    "north",
+    "northeast",
+    "east",
+    "southeast"
+  ],
+  "idle": {
+    "south": 2,
+    "southwest": 1,
+    "west": 5,
+    "northwest": 1,
+    "north": 2,
+    "northeast": 1,
+    "east": 5,
+    "southeast": 1
+  },
+  "anchor": [
+    16,
+    46
+  ],
+  "source": "art-src/maple"
+}

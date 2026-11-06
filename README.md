@@ -28,6 +28,10 @@ npm test        # 규칙·맵 테스트
 - `assets/girl.png`: 소녀 농부. 농부 시트에 땋은 머리·리본·모자 띠·분홍 셔츠를 코드로 덧그렸어요(`tools/build_girl.py`).
   동쪽 다섯 방향만 그리고 서쪽은 좌우 반전이라, 걷기 동작과 프레임 수는 농부와 같아요.
   처음 시작할 때 고르고, 왼쪽 위 `캐릭터` 버튼으로 언제든 바꿀 수 있어요.
+- `assets/maple.png`: 메이플. Codex 이미지 생성으로 처음부터 뽑은 캐릭터예요(빨간 단발·초록 두건·앞치마 원피스·장화).
+  원본 시트와 프롬프트는 `art-src/maple/`에 있어요. 동·남·남동·북동·북 5장을 받아 서쪽은 좌우 반전해요.
+  새 캐릭터도 같은 형식(1774×887, 4×2칸, 8프레임) 5장을 `art-src/<이름>/`에 넣고
+  `python3 tools/build_character.py art-src/<이름> <이름>`을 실행한 뒤 `src/model.js`의 `LOOKS`에 이름을 추가하면 돼요.
 - `tools/build_farmer.py`: `../sprite_a/output/farmer-8way/farmer-8way-sheet.png`(256px)를 축소해 위 시트를 만들어요.
   최근접 샘플링을 써요. 평균 방식은 눈이 뭉개지고, 팔레트 고정 방식은 모자 색이 바래서 제외했어요.
 - `src/world.js`: 맵(지형·충돌·오브젝트 배치). `src/model.js`: 게임 규칙·저장 형식. 둘 다 DOM 없이 테스트돼요.
