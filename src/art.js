@@ -505,10 +505,14 @@ for (const kind of Object.keys(SEED_TINT)) {
 // ---------------------------------------------------------------- loading
 
 export async function loadArt(world) {
-  const farmer = new Image();
-  farmer.src = new URL('../assets/farmer.png', import.meta.url).href;
-  const meta = await fetch(new URL('../assets/farmer.json', import.meta.url)).then((r) => r.json());
-  await farmer.decode();
+  const chars = {};
+  await Promise.all(['farmer', 'girl'].map(async (name) => {
+    const img = new Image();
+    img.src = new URL(`../assets/${name}.png`, import.meta.url).href;
+    const meta = await fetch(new URL(`../assets/${name}.json`, import.meta.url)).then((r) => r.json());
+    await img.decode();
+    chars[name] = { img, meta };
+  }));
   const crops = {};
   for (const kind of ['turnip', 'carrot', 'cabbage']) crops[kind] = [0, 1, 2, 3].map((s) => cropSprite(kind, s).canvas());
   const fences = {};
@@ -518,7 +522,7 @@ export async function loadArt(world) {
   const icons = {};
   for (const [id, draw] of Object.entries(ICON_DRAW)) icons[id] = icon(draw);
   return {
-    farmer, farmerMeta: meta,
+    chars,
     terrain: paintTerrain(world),
     trees: [0, 1, 2].map((v) => tree(v).canvas()),
     bushes: [0, 1, 2].map((v) => bush(v).canvas()),

@@ -5,6 +5,7 @@ export const SAVE_VERSION = 1;
 export const DAY_START = 6 * 60;
 export const PASS_OUT = 26 * 60; // 02:00 the next morning
 export const SLOTS = 9;
+export const LOOKS = ['farmer', 'girl'];
 
 export const CROPS = {
   turnip: { name: '순무', days: 3, seed: 20, sell: 60 },
@@ -39,6 +40,7 @@ export function newGame() {
     water: CAN_MAX,
     weather: 'sun',
     player: { x: START.x, y: START.y, dir: 'south' },
+    look: 'farmer',
     inventory: inv,
     selected: 0,
     tiles: {},
@@ -205,6 +207,7 @@ export function deserialize(text) {
     const [x, y] = k.split(',').map(Number);
     if (!isFarmland(x, y) || (t.crop && !CROPS[t.crop.kind])) delete s.tiles[k];
   }
+  if (!LOOKS.includes(s.look)) s.look = 'farmer';
   s.selected = Math.max(0, Math.min(SLOTS - 1, s.selected | 0));
   return s;
 }

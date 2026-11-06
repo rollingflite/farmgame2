@@ -259,6 +259,30 @@ function showReport(r) {
     [{ label: `${r.day + 1}일차 시작`, primary: true }]);
 }
 
+function portrait(look) {
+  const { img, meta } = art.chars[look];
+  const c = document.createElement('canvas');
+  c.width = meta.frameWidth; c.height = meta.frameHeight;
+  c.getContext('2d').drawImage(img, meta.idle.south * meta.frameWidth, 0, meta.frameWidth, meta.frameHeight, 0, 0, meta.frameWidth, meta.frameHeight);
+  return c.toDataURL();
+}
+
+const LOOK_NAMES = { farmer: '소년 농부', girl: '소녀 농부' };
+function chooseLook(then) {
+  const cards = M.LOOKS.map((k) => `
+    <button class="look${g.state.look === k ? ' sel' : ''}" data-look="${k}">
+      <img src="${portrait(k)}" width="96" height="144" alt=""><span>${LOOK_NAMES[k]}</span>
+    </button>`).join('');
+  openDialog('look', '캐릭터 고르기', `<div class="looks">${cards}</div>`, [{ label: '결정', primary: true, action: then || closeDialog }]);
+  for (const b of $('dialog').querySelectorAll('[data-look]')) {
+    b.onclick = () => {
+      g.state.look = b.dataset.look;
+      g.dirty = true;
+      for (const o of $('dialog').querySelectorAll('[data-look]')) o.classList.toggle('sel', o === b);
+    };
+  }
+}
+
 function showHelp() {
   openDialog('help', '작은 농장', `
     <p>밭을 갈고 씨앗을 심어 물을 주세요. 물 준 날 밤에만 작물이 자라요.</p>
@@ -378,6 +402,7 @@ $('touch-move').addEventListener('pointercancel', endStick);
 $('btn-use').addEventListener('pointerdown', (e) => { e.preventDefault(); mouse.active = false; useTool(); });
 $('btn-act').addEventListener('pointerdown', (e) => { e.preventDefault(); interact(); });
 $('btn-help').onclick = showHelp;
+$('btn-look').onclick = () => { if (!g.dialog) chooseLook(); };
 $('btn-save').onclick = () => { save(); toast('저장했어요.'); };
 
 // ------------------------------------------------------------ loop
@@ -429,5 +454,5 @@ function frame(now) {
 }
 requestAnimationFrame(frame);
 document.body.classList.add('ready');
-if (!loaded) showHelp();
+if (!loaded) chooseLook(showHelp);
 else if (g.state.report && g.state.minutes === M.DAY_START) showReport(g.state.report);

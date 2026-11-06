@@ -198,7 +198,8 @@ export class Renderer {
   drawPlayer(g, t) {
     const { ctx, art } = this;
     const s = g.state, a = g.anim;
-    const meta = art.farmerMeta;
+    const ch = art.chars[s.look] || art.chars.farmer;
+    const meta = ch.meta;
     const row = meta.rows.indexOf(s.player.dir);
     const frame = a.moving ? Math.floor(a.walkT * meta.fps) % meta.frames : meta.idle[s.player.dir];
     const px = Math.round(s.player.x), py = Math.round(s.player.y);
@@ -208,7 +209,7 @@ export class Renderer {
     const toolBehind = tool && dy < 0;
     if (toolBehind) this.drawTool(a, px, py, dx, dy, tool);
     const bob = a.action ? (a.action.t / a.action.dur < 0.5 ? -1 : 1) : 0;
-    ctx.drawImage(art.farmer, frame * meta.frameWidth, row * meta.frameHeight, meta.frameWidth, meta.frameHeight,
+    ctx.drawImage(ch.img, frame * meta.frameWidth, row * meta.frameHeight, meta.frameWidth, meta.frameHeight,
       px - meta.anchor[0], py - meta.anchor[1] + bob, meta.frameWidth, meta.frameHeight);
     if (tool && !toolBehind) this.drawTool(a, px, py, dx, dy, tool);
   }

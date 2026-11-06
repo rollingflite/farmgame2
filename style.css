@@ -120,3 +120,7 @@ ul.help li { font-size: 16px; padding: 3px 0; }
   #status { padding: 6px 10px; min-width: 0; }
   #clock { font-size: 20px; }
 }
+.looks { display: flex; gap: 12px; justify-content: center; }
+#dialog .looks .look { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 14px; background: #ead3a4; border: 3px solid var(--paper-2); }
+#dialog .looks .look img { image-rendering: pixelated; }
+#dialog .looks .look.sel { border-color: var(--accent); background: #fff1cf; box-shadow: 0 0 0 2px var(--accent); }

@@ -108,3 +108,11 @@ test('world: every key spot is reachable from the start', () => {
   for (const spot of ['11,9', '14,9', '39,9', `${FARM.x},${FARM.y}`, `${FARM.x + FARM.w - 1},${FARM.y + FARM.h - 1}`])
     assert.ok(seen.has(spot), spot);
 });
+
+test('character look is saved and unknown looks fall back to the farmer', () => {
+  const s = M.newGame();
+  s.look = 'girl';
+  assert.equal(M.deserialize(M.serialize(s)).look, 'girl');
+  s.look = 'dragon';
+  assert.equal(M.deserialize(M.serialize(s)).look, 'farmer');
+});
