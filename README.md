@@ -3,7 +3,7 @@
 `sprite_a`에서 만든 8방향 농부를 주인공으로 한 브라우저 농사 게임이에요. 빌드 없이 돌아가요.
 
 ```sh
-npm run dev     # http://localhost:4174
+npm run dev     # http://localhost:4174, 같은 내부망에서는 http://192.168.0.76:4174
 npm test        # 규칙·맵 테스트
 ```
 
