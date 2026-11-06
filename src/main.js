@@ -422,6 +422,29 @@ $('touch-move').addEventListener('pointercancel', endStick);
 $('btn-use').addEventListener('pointerdown', (e) => { e.preventDefault(); mouse.active = false; useTool(); });
 $('btn-act').addEventListener('pointerdown', (e) => { e.preventDefault(); interact(); });
 $('btn-help').onclick = showHelp;
+function confirmReset() {
+  openDialog('reset', '처음부터 다시', '<p>지금까지의 밭·돈·가방·날짜가 모두 지워지고 1일차부터 다시 시작해요. 되돌릴 수 없어요.</p>', [
+    { label: '초기화', primary: true, action: resetGame },
+    { label: '취소' },
+  ]);
+  const [ok, cancel] = $('dialog').querySelectorAll('.buttons button');
+  ok.classList.add('danger');
+  cancel.focus(); // Enter should not wipe the farm by accident
+}
+function resetGame() {
+  const look = g.state.look;
+  g.state = M.newGame();
+  g.state.look = look;
+  g.anim.action = null;
+  g.particles = [];
+  g.warnedLate = false;
+  save();
+  closeDialog();
+  toast('처음부터 다시 시작해요.');
+  chooseLook(showHelp);
+}
+
+$('btn-reset').onclick = () => { if (!g.dialog) confirmReset(); };
 $('btn-look').onclick = () => { if (!g.dialog) chooseLook(); };
 $('btn-save').onclick = () => { save(); toast('저장했어요.'); };
 

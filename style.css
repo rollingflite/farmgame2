@@ -81,6 +81,7 @@ kbd {
   background: var(--paper-2); color: var(--ink); cursor: pointer;
 }
 #dialog button.primary { background: var(--green); color: #fff; text-shadow: 0 1px 0 #2f5f2e; }
+#dialog button.primary.danger { background: var(--accent); text-shadow: 0 1px 0 #7a2a24; }
 #dialog button:hover { filter: brightness(1.06); }
 .icon { image-rendering: pixelated; vertical-align: middle; }
 .shop-money { text-align: right; }
