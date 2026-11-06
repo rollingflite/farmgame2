@@ -1,0 +1,14 @@
+Use your built-in image generation tool to make pixel-art HOEING animation sprite sheets for an existing farm-game character. Do not write code and do not try to copy or save files yourself; just generate the images and, at the end, list the generated file paths per sheet name.
+
+Character: the farmer in the reference images (straw hat, red shirt, blue overalls, brown boots, messy brown hair). Attached reference images are her/his 8-frame WALK sheets: east.png (side view facing right), south.png (facing the camera), north.png (back view). Keep the character IDENTICAL: same face, hair, colors, outfit, outline style, proportions and the same size in pixels as in the walk cells.
+
+Format for every sheet (copy from the walk references): 1774x887 canvas, 4 columns x 2 rows of equal cells, frames ordered left-to-right then top-to-bottom, one full-body character per cell, fixed camera, same scale and same feet baseline in every cell, character centered in the cell, chunky pixel art with dark brown outlines, transparent background (no floor, no shadow, no dirt, no particles, no text).
+
+The tool: a simple farming hoe with a wooden handle and a grey metal blade, about as long as the character is tall. Leave enough empty space in each cell so the raised hoe is never cut off.
+
+Animation, 8 frames, one hoe stroke: 1 ready stance holding the hoe low, 2 start lifting, 3 hoe raised over the shoulder, 4 hoe fully raised above the head, 5 swinging down, 6 impact: blade strikes the ground in front of the feet, 7 follow-through holding at the ground, 8 recovering back toward the ready stance. The feet stay planted in place.
+
+Make three sheets:
+1. hoe-east  - facing right, side view, striking the ground to the right (match east.png angle)
+2. hoe-south - facing the camera, striking the ground in front (below) of the character (match south.png angle)
+3. hoe-north - back view, striking the ground in front (above) of the character (match north.png angle)

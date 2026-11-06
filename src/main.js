@@ -123,19 +123,36 @@ function useTool() {
   const s = g.state;
   const tgt = pickTarget();
   const item = s.inventory[s.selected];
+  const f = feetTile();
+  const face = () => { if (tgt.x !== f.x || tgt.y !== f.y) s.player.dir = dirFrom(tgt.x - f.x, tgt.y - f.y); };
+  const crop = M.tileAt(s, tgt.x, tgt.y)?.crop;
+  if ((item?.id === 'hoe' || item?.id === 'can') && !(crop && M.isRipe(crop))) {
+    // Tools change the tile when the swing lands, not when the key is pressed.
+    face();
+    const anim = item.id === 'hoe' && art.chars[s.look]?.hoe?.meta;
+    const dur = anim ? anim.frames / anim.fps : 0.34;
+    g.anim.action = { item: item.id, t: 0, dur, hitAt: anim ? (anim.hit / anim.frames) * dur : dur * 0.55, tx: tgt.x, ty: tgt.y, hit: false, deferred: true };
+    return;
+  }
   const res = M.useOn(s, tgt.x, tgt.y, isWater);
   if (res.msg) toast(res.msg);
   if (res.ok) g.dirty = true;
   const shown = res.fx === 'harvest' ? res.item : item?.id;
   if (res.ok || item?.id === 'hoe' || item?.id === 'can') {
-    g.anim.action = { item: shown, t: 0, dur: res.fx === 'harvest' || res.fx === 'plant' ? 0.24 : 0.34, fx: res.ok ? res.fx : null, tx: tgt.x, ty: tgt.y, hit: false, res };
-    // face the tile being worked on
-    const f = feetTile();
-    if (tgt.x !== f.x || tgt.y !== f.y) s.player.dir = dirFrom(tgt.x - f.x, tgt.y - f.y);
+    const dur = res.fx === 'harvest' || res.fx === 'plant' ? 0.24 : 0.34;
+    g.anim.action = { item: shown, t: 0, dur, hitAt: dur * 0.55, fx: res.ok ? res.fx : null, tx: tgt.x, ty: tgt.y, hit: false, res };
+    face();
   }
 }
 
 function playHit(a) {
+  if (a.deferred) {
+    const res = M.useOn(g.state, a.tx, a.ty, isWater);
+    if (res.msg) toast(res.msg);
+    if (res.ok) g.dirty = true;
+    a.fx = res.ok ? res.fx : null;
+    a.res = res;
+  }
   const cx = a.tx * T + 16, cy = a.ty * T + 18;
   if (a.fx === 'till') burst(cx, cy, ['#5a341c', '#87542f', '#a26e42'], 12, { up: 70 });
   else if (a.fx === 'water') burst(cx, cy - 4, ['#8fd3ef', '#d8f4fc', '#4aa3c9'], 14, { up: 40, spread: 40, life: 0.45 });
@@ -419,7 +436,7 @@ function update(dt) {
 
   if (a.action) {
     a.action.t += dt;
-    if (!a.action.hit && a.action.t >= a.action.dur * 0.55) { a.action.hit = true; playHit(a.action); }
+    if (!a.action.hit && a.action.t >= a.action.hitAt) { a.action.hit = true; playHit(a.action); }
     if (a.action.t >= a.action.dur) { a.action = null; if (keys.has('use')) useTool(); }
     a.moving = false;
   } else {

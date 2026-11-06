@@ -513,6 +513,17 @@ export async function loadArt(world) {
     const meta = await fetch(new URL(`../assets/${name}.json`, import.meta.url)).then((r) => r.json());
     await img.decode();
     chars[name] = { img, meta };
+    // Optional tool animation sheet, e.g. assets/maple-hoe.png
+    try {
+      const r = await fetch(new URL(`../assets/${name}-hoe.json`, import.meta.url));
+      if (r.ok) {
+        const hoe = new Image();
+        hoe.src = new URL(`../assets/${name}-hoe.png`, import.meta.url).href;
+        const hm = await r.json();
+        await hoe.decode();
+        chars[name].hoe = { img: hoe, meta: hm };
+      }
+    } catch { /* no hoe animation: the icon swing is used */ }
   }));
   const crops = {};
   for (const kind of ['turnip', 'carrot', 'cabbage']) crops[kind] = [0, 1, 2, 3].map((s) => cropSprite(kind, s).canvas());

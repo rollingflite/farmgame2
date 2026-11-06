@@ -30,6 +30,10 @@ npm test        # 규칙·맵 테스트
   원본 시트와 프롬프트는 `art-src/maple/`에 있어요. 동·남·남동·북동·북 5장을 받아 서쪽은 좌우 반전해요.
   새 캐릭터도 같은 형식(1774×887, 4×2칸, 8프레임) 5장을 `art-src/<이름>/`에 넣고
   `python3 tools/build_character.py art-src/<이름> <이름>`을 실행한 뒤 `src/model.js`의 `LOOKS`에 이름을 추가하면 돼요.
+- `assets/<이름>-hoe.png`: 괭이질 동작(남·북·동, 서는 반전, 8프레임). Codex가 그린 `art-src/<이름>/hoe-*.png`를
+  `python3 tools/build_action.py art-src/<이름> <이름> hoe <땅에 닿는 프레임>`으로 줄여요.
+  크기는 걷기 시트에서 재서 캐릭터가 걸을 때와 같은 크기로 나와요. 이 시트가 없는 캐릭터는 아이콘을 휘두르는 효과로 대신해요.
+  괭이와 물뿌리개는 키를 누른 순간이 아니라 도구가 땅에 닿는 순간에 밭이 바뀌어요.
 - `tools/build_farmer.py`: `../sprite_a/output/farmer-8way/farmer-8way-sheet.png`(256px)를 축소해 위 시트를 만들어요.
   최근접 샘플링을 써요. 평균 방식은 눈이 뭉개지고, 팔레트 고정 방식은 모자 색이 바래서 제외했어요.
 - `src/world.js`: 맵(지형·충돌·오브젝트 배치). `src/model.js`: 게임 규칙·저장 형식. 둘 다 DOM 없이 테스트돼요.
