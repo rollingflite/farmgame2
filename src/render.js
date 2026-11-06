@@ -204,12 +204,13 @@ export class Renderer {
     const frame = a.moving ? Math.floor(a.walkT * meta.fps) % meta.frames : meta.idle[s.player.dir];
     const px = Math.round(s.player.x), py = Math.round(s.player.y);
     this.shadow(px, py, 20, 7, 0.28);
-    if (a.action?.item === 'hoe' && ch.hoe) {
-      // Drawn hoe stroke: four directions, diagonals use the side view.
-      const hm = ch.hoe.meta, d = s.player.dir;
+    const act = a.action && (a.action.item === 'hoe' || a.action.item === 'can') && ch[a.action.item];
+    if (act) {
+      // Drawn tool animation: four directions, diagonals use the side view.
+      const hm = act.meta, d = s.player.dir;
       const r = hm.rows.indexOf(d.includes('east') ? 'east' : d.includes('west') ? 'west' : d);
       const f = Math.min(hm.frames - 1, Math.floor(a.action.t / a.action.dur * hm.frames));
-      ctx.drawImage(ch.hoe.img, f * hm.frameWidth, r * hm.frameHeight, hm.frameWidth, hm.frameHeight,
+      ctx.drawImage(act.img, f * hm.frameWidth, r * hm.frameHeight, hm.frameWidth, hm.frameHeight,
         px - hm.anchor[0], py - hm.anchor[1], hm.frameWidth, hm.frameHeight);
       return;
     }

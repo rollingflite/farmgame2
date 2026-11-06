@@ -1,0 +1,17 @@
+{
+  "frameWidth": 52,
+  "frameHeight": 55,
+  "frames": 8,
+  "fps": 14,
+  "rows": [
+    "south",
+    "north",
+    "east",
+    "west"
+  ],
+  "anchor": [
+    26,
+    49
+  ],
+  "hit": 3
+}

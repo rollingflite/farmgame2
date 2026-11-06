@@ -1,0 +1,14 @@
+Use your built-in image generation tool to make pixel-art WATERING-CAN animation sprite sheets for an existing farm-game character. Do not write code and do not try to copy or save files yourself; just generate the images and, at the end, list the generated file paths per sheet name.
+
+Character: Maple, the girl in the reference images (copper-orange wavy bob, green bandana with a knot on top, mustard-yellow blouse, brown pinafore dress, cream knee socks, green rubber boots). Attached reference images are her/his 8-frame WALK sheets: east.png (side view facing right), south.png (facing the camera), north.png (back view). Keep the character IDENTICAL: same face, hair, colors, outfit, outline style, proportions and the same size in pixels as in the walk cells.
+
+Format for every sheet (copy from the walk references): 1774x887 canvas, 4 columns x 2 rows of equal cells, frames ordered left-to-right then top-to-bottom, one full-body character per cell, fixed camera, same scale and same feet baseline in every cell, character centered in the cell, chunky pixel art with dark brown outlines, transparent background (no floor, no shadow, no dirt, no particles, no text).
+
+The tool: a round blue metal watering can (light-blue highlights, darker blue shading, a long thin spout, a top handle), roughly the size of the character's torso. Leave enough empty space in each cell so the can and the spout are never cut off.
+
+Animation, 8 frames, one watering: 1 standing holding the can by the handle at the side, 2 lifting the can forward, 3 can held out in front with the spout pointing at the ground ahead, 4 tilting the can, water starts to pour, 5 pouring: a short stream of light-blue water droplets falls from the spout onto the ground in front, 6 still pouring, 7 tilting the can back up, last drops, 8 lowering the can back to the side. The feet stay planted in place. The water stream may be drawn only in frames 4 to 7.
+
+Make three sheets:
+1. can-east  - facing right, side view, watering the ground to the right (match east.png angle)
+2. can-south - facing the camera, watering the ground in front (below) of the character (match south.png angle)
+3. can-north - back view, watering the ground in front (above) of the character; the can may be partly hidden by the body (match north.png angle)

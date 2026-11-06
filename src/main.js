@@ -129,7 +129,7 @@ function useTool() {
   if ((item?.id === 'hoe' || item?.id === 'can') && !(crop && M.isRipe(crop))) {
     // Tools change the tile when the swing lands, not when the key is pressed.
     face();
-    const anim = item.id === 'hoe' && art.chars[s.look]?.hoe?.meta;
+    const anim = art.chars[s.look]?.[item.id]?.meta;
     const dur = anim ? anim.frames / anim.fps : 0.34;
     g.anim.action = { item: item.id, t: 0, dur, hitAt: anim ? (anim.hit / anim.frames) * dur : dur * 0.55, tx: tgt.x, ty: tgt.y, hit: false, deferred: true };
     return;
