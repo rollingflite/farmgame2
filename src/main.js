@@ -267,7 +267,7 @@ function portrait(look) {
   return c.toDataURL();
 }
 
-const LOOK_NAMES = { farmer: '소년 농부', girl: '소녀 농부', maple: '메이플' };
+const LOOK_NAMES = { farmer: '농부', maple: '메이플' };
 function chooseLook(then) {
   const cards = M.LOOKS.map((k) => `
     <button class="look${g.state.look === k ? ' sel' : ''}" data-look="${k}">

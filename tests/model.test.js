@@ -111,8 +111,10 @@ test('world: every key spot is reachable from the start', () => {
 
 test('character look is saved and unknown looks fall back to the farmer', () => {
   const s = M.newGame();
+  s.look = 'maple';
+  assert.equal(M.deserialize(M.serialize(s)).look, 'maple');
   s.look = 'girl';
-  assert.equal(M.deserialize(M.serialize(s)).look, 'girl');
+  assert.equal(M.deserialize(M.serialize(s)).look, 'maple');
   s.look = 'dragon';
   assert.equal(M.deserialize(M.serialize(s)).look, 'farmer');
 });
